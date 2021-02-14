@@ -10,12 +10,19 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>common</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>common-util</module>
+        <module>service-util</module>
+    </modules>
 
     <dependencies>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <scope>provided </scope>
+            <version>2.2.2.RELEASE</version>
+            <scope>provided</scope>
         </dependency>
 
         <!--lombok用来简化实体类：需要安装lombok插件-->
