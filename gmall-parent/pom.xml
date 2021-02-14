@@ -6,7 +6,11 @@
 
     <groupId>com.mynah.gmall</groupId>
     <artifactId>gmall-parent</artifactId>
+    <packaging>pom</packaging>
     <version>1.0</version>
+    <modules>
+        <module>common</module>
+    </modules>
 
     <!--定义jar包的版本号-->
     <properties>
