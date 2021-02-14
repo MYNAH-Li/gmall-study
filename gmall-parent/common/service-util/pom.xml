@@ -21,6 +21,18 @@
             <artifactId>redisson</artifactId>
             <version>3.14.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.mynah.gmall</groupId>
+            <artifactId>common-util</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-extension</artifactId>
+            <version>3.0.5</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 
