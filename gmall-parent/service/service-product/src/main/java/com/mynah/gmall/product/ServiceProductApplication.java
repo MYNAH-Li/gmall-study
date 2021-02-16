@@ -1,4 +1,4 @@
-package com.atguigu.gmall.product;
+package com.mynah.gmall.product;
 
 
 import org.springframework.boot.SpringApplication;

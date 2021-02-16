@@ -1,7 +1,7 @@
-package com.atguigu.gmall.product.mapper;
+package com.mynah.gmall.product.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.mapstruct.Mapper;
+import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface BaseCategory1Mapper extends BaseMapper {
