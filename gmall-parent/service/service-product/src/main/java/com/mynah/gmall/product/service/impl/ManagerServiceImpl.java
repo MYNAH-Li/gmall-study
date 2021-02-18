@@ -1,17 +1,13 @@
 package com.mynah.gmall.product.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.mynah.gmall.model.product.BaseAttrInfo;
-import com.mynah.gmall.model.product.BaseCategory2;
-import com.mynah.gmall.model.product.BaseCategory3;
-import com.mynah.gmall.product.mapper.BaseAttrInfoMapper;
-import com.mynah.gmall.product.mapper.BaseCategory1Mapper;
-import com.mynah.gmall.product.mapper.BaseCategory2Mapper;
-import com.mynah.gmall.product.mapper.BaseCategory3Mapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mynah.gmall.common.result.Result;
+import com.mynah.gmall.model.product.*;
+import com.mynah.gmall.product.mapper.*;
 import com.mynah.gmall.product.service.ManagerService;
-import com.mynah.gmall.model.product.BaseCategory1;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,6 +23,10 @@ public class ManagerServiceImpl implements ManagerService {
     private BaseCategory3Mapper baseCategory3Mapper;
     @Autowired
     private BaseAttrInfoMapper baseAttrInfoMapper;
+    @Autowired
+    private BaseAttrValueMapper baseAttrValueMapper;
+    @Autowired
+    private BaseTrademarkMapper baseTrademarkMapper;
 
     @Override
     public List<BaseCategory1> getCategory1() {
@@ -49,4 +49,41 @@ public class ManagerServiceImpl implements ManagerService {
     public List<BaseAttrInfo> attrInfoList(Long category1Id, Long category2Id, Long category3Id) {
         return baseAttrInfoMapper.attrInfoList(category1Id,category2Id,category3Id);
     }
+
+    //添加属性
+    @Override
+    public void saveAttrInfo(BaseAttrInfo baseAttrInfo) {
+        //插入属性列表
+        baseAttrInfoMapper.insert(baseAttrInfo);
+
+        //插入属性值
+        List<BaseAttrValue> attrValueList = baseAttrInfo.getAttrValueList();
+        attrValueList.forEach((baseAttrValue)->{
+            baseAttrValue.setAttrId(baseAttrInfo.getId());
+            baseAttrValueMapper.insert(baseAttrValue);
+        });
+
+    }
+
+    //删除平台属性
+    @Override
+    public void deleteAttrInfo(BaseAttrInfo baseAttrInfo) {
+        List<BaseAttrValue> attrValueList = baseAttrInfo.getAttrValueList();
+        attrValueList.forEach((baseAttrValue)->{
+            baseAttrValue.setAttrId(baseAttrInfo.getId());
+            baseAttrValueMapper.delete(new QueryWrapper<BaseAttrValue>(baseAttrValue));
+        });
+    }
+
+    @Override
+    public IPage baseTrademark(Integer page, Integer limit) {
+        return baseTrademarkMapper.selectPage(new Page<BaseTrademark>(page, limit), null);
+    }
+
+    @Override
+    public List<BaseTrademark> getTrademarkList() {
+        return baseTrademarkMapper.selectList(null);
+    }
+
+
 }

@@ -1,17 +1,11 @@
 package com.mynah.gmall.product.controller;
 
-import com.mynah.gmall.model.product.BaseAttrInfo;
-import com.mynah.gmall.model.product.BaseCategory2;
-import com.mynah.gmall.model.product.BaseCategory3;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.mynah.gmall.model.product.*;
 import com.mynah.gmall.product.service.ManagerService;
 import com.mynah.gmall.common.result.Result;
-import com.mynah.gmall.model.product.BaseCategory1;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -53,4 +47,36 @@ public class ManagerController {
         );
         return Result.ok(list);
     }
+
+    //增加平台属性
+    @PostMapping("saveAttrInfo")
+    public Result saveAttrInfo(BaseAttrInfo baseAttrInfo){
+        managerService.saveAttrInfo(baseAttrInfo);
+        return Result.ok();
+    }
+
+    //删除平台属性
+    @PostMapping("deleteAttrInfo")
+    public Result deleteAttrInfo(BaseAttrInfo baseAttrInfo){
+        managerService.deleteAttrInfo(baseAttrInfo);
+        return Result.ok();
+    }
+
+
+    //获取品牌分页列表
+    @GetMapping("baseTrademark/{page}/{limit}")
+    public Result baseTrademark(@PathVariable(name = "page") Integer page,
+                                @PathVariable(name = "limit") Integer limit)
+    {
+        IPage iPage = managerService.baseTrademark(page, limit);
+        return Result.ok(iPage);
+    }
+
+    //获取品牌
+    @GetMapping("baseTrademark/getTrademarkList")
+    public Result getTrademarkList(){
+        List<BaseTrademark> list = managerService.getTrademarkList();
+        return Result.ok(list);
+    }
 }
+
