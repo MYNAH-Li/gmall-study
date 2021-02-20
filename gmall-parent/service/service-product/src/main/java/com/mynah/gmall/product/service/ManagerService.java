@@ -1,7 +1,6 @@
 package com.mynah.gmall.product.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.mynah.gmall.common.result.Result;
 import com.mynah.gmall.model.product.*;
 
 import java.util.List;
@@ -26,4 +25,23 @@ public interface ManagerService {
 
 
     List<BaseTrademark> getTrademarkList();
+
+    List<BaseSaleAttr> baseSaleAttrList();
+
+    void saveSpuInfo(SpuInfo spuInfo);
+
+    IPage<SpuInfo> SpuInfoPage(Integer page, Integer limit, Long category3Id);
+
+
+    List<SpuImage> spuImageList(Long spuId);
+
+    List<SpuSaleAttr> spuSaleAttrList(Long spuId);
+
+    void saveSkuInfo(SkuInfo skuInfo);
+
+    IPage<SkuInfo> list(Integer page, Integer limit);
+
+    void onSale(Long skuId);
+
+    void cancelSale(Long skuId);
 }

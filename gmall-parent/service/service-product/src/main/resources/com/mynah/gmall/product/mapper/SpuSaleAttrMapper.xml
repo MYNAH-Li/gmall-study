@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mynah.gmall.product.mapper.SpuSaleAttrMapper">
+
+    <resultMap id="spuSaleAttrListMap" type="SpuSaleAttr">
+        <id column="id" javaType="id"/>
+        <collection property="spuSaleAttrValueList" ofType="SpuSaleAttrValue">
+            <id column="vId" javaType="id"/>
+        </collection>
+    </resultMap>
+    
+    <!--List<SpuSaleAttr> spuSaleAttrList(QueryWrapper<SpuSaleAttr> spu_id);-->
+    <select id="spuSaleAttrList" resultMap="spuSaleAttrListMap">
+        SELECT
+            ssa.id,
+            ssa.spu_id,
+            ssa.sale_attr_name,
+            ssa.base_sale_attr_id,
+            ssav.sale_attr_value_name,
+            ssav.id vId
+        from spu_sale_attr ssa INNER JOIN spu_sale_attr_value ssav
+        ON ssa.spu_id = ssav.spu_id AND ssa.base_sale_attr_id = ssav.base_sale_attr_id
+        WHERE ssa.spu_id = #{spuId}
+    </select>
+
+</mapper>

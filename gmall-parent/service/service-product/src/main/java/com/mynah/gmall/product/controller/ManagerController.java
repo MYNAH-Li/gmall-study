@@ -78,5 +78,72 @@ public class ManagerController {
         List<BaseTrademark> list = managerService.getTrademarkList();
         return Result.ok(list);
     }
+
+    //获取销售属性表
+    public Result baseSaleAttrList(){
+        List<BaseSaleAttr> list = managerService.baseSaleAttrList();
+        return Result.ok(list);
+    }
+
+    //spu保存
+    @GetMapping("/saveSpuInfo")
+    public Result saveSpuInfo(@RequestBody SpuInfo spuInfo){
+
+        managerService.saveSpuInfo(spuInfo);
+
+        return Result.ok();
+    }
+
+    //查询SKU分页列表
+    @GetMapping("/{page}/{limit}?category3Id=61")
+    public Result SpuInfoPage(@PathVariable(name = "page") Integer page,
+                              @PathVariable(name = "limit") Integer limit,
+                              Long category3Id){
+        IPage<SpuInfo> iPage = managerService.SpuInfoPage(page,limit,category3Id);
+        return Result.ok(iPage);
+    }
+
+    //根据spuid查询商品图片
+    @GetMapping("/spuImageList/{spuId}")
+    public Result spuImageList(@PathVariable(name = "spuId") Long spuId){
+        List<SpuImage> list = managerService.spuImageList(spuId);
+        return Result.ok();
+    }
+
+    //根据spuid查询销售属性及销售属性值
+    @GetMapping("/spuSaleAttrList/{spuId}")
+    public Result spuSaleAttrList(@PathVariable(name= "spuId") Long spuId){
+        List<SpuSaleAttr> list = managerService.spuSaleAttrList(spuId);
+        return Result.ok();
+    }
+
+    //添加sku
+    @PostMapping("/saveSkuInfo")
+    public Result saveSkuInfo(@RequestBody SkuInfo skuInfo){
+        managerService.saveSkuInfo(skuInfo);
+        return Result.ok();
+    }
+
+    //获取sku分页列表
+    @GetMapping("/list/{page}/{limit}")
+    public Result list(@PathVariable(name = "page") Integer page,
+                       @PathVariable(name = "limit") Integer limit){
+        IPage<SkuInfo> iPage = managerService.list(page,limit);
+        return Result.ok(iPage);
+    }
+
+    //上架
+    @GetMapping("/onSale/{skuId}")
+    public Result onSale(@PathVariable(name = "skuId") Long skuId){
+        managerService.onSale(skuId);
+        return Result.ok();
+    }
+
+    //下架
+    @GetMapping("/cancelSale/{skuId}")
+    public Result cancelSale(@PathVariable(name = "skuId") Long skuId){
+        managerService.cancelSale(skuId);
+        return Result.ok();
+    }
 }
 
